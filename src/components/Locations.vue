@@ -30,8 +30,8 @@ export default {
 
 <style scoped>
     .wrapper{
-        border: 1px solid black;
-        border-radius: 10%;
+        border: 5px solid lightskyblue;
+        border-radius: 5%;
     }
 
     ul {

@@ -1,6 +1,6 @@
 <template>
   <the-header @search="search"> </the-header>
-  <h1>Locations</h1>
+  <h1>Choose your location...</h1>
   <div class="locs">
     <locations class="loc"
     @picked="getWeather"
@@ -101,8 +101,18 @@ export default {
 }
 
 .loc{
-  min-width: 500px;
+  flex-basis: 500px;
+  flex-grow: 1;
+  
+ 
+}
+
+.loc:hover {
+  opacity: 0.9;
+  background-color: rgb(200, 206, 207);
   
 }
+
+
 
 </style>

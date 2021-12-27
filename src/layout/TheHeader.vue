@@ -1,7 +1,11 @@
 <template>
-  <h1>WeatherApp</h1>
+  <div class="tophead">
+      <h1>WeatherApp</h1>
+  <img class="startingIcon" src="../assets/weather.png" alt="">
+  </div>
+  
       <div>
-          <input @keypress="search" type="text" placeholder="Enter City  or Coordinates..." v-model="searched">
+          <input @keypress="search" type="text" placeholder="Type your City  or Coordinates and press Enter..." v-model="searched">
           <button @click="search" class="searchbtn">Find Weather</button>
       </div>
 </template>
@@ -22,13 +26,23 @@ export default {
 </script>
 
 <style scoped>
+.tophead {
+    display: flex;
+    align-items: top;
+    justify-content: center;
+}
 
 h1 {
     font-size: 3em;
     color:darkblue;
 }
 
-
+button {
+    background-color: lightskyblue;
+    color: white;
+    font-weight: bolder;
+    font-size: 1.1em;
+}
 
 input {
     width: 70%;
@@ -40,6 +54,13 @@ input {
 .searchbtn {
     height: 60px;
     
+}
+
+.startingIcon {
+    height: 5%;
+    width: 5%;
+    min-width: 60px;
+    min-height: 60px;
 }
 
 </style>

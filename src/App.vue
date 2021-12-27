@@ -1,6 +1,5 @@
 <template>
   <the-header> </the-header>
-
   <button @click="modalToggle">Show store</button>
   <h1>Locations</h1>
   <div class="locs">
@@ -45,7 +44,7 @@ export default {
   },
   created() {
     axios
-      .get("https://www.metaweather.com/api/location/search/?query=san")
+      .get("https:/www.metaweather.com/api/location/search/?query=san")
       .then((response) => {
         this.locations = response.data;
         this.$store.state.locs = response.data;
@@ -57,16 +56,13 @@ export default {
   methods: {
     getWeather(id) {
       this.modalToggle();
-      axios
-      .get("https://www.metaweather.com/api/location/" + id)
+      axios 
+      .get(`https://www.metaweather.com/api/location/${id}`)
       .then((response) => {
         this.weather = response.data.consolidated_weather[0];
         this.testing = response.data.consolidated_weather;
         this.parentLocation = response.data.title;
         this.selectedLocation = response.data.title;
-        console.log(this.testing);
-        console.log(this.testing[3]);
-        console.log(this.testing[1].humidity);
       })
       .catch(error => {
         console.log(error.response);

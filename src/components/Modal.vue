@@ -4,11 +4,37 @@
             <h1>{{location}}</h1>
             <h3>{{parent}}</h3>
            <p>{{ date0 }}</p>
-           <img :src="this.iconUrl" alt="">
+           <img class="mainIcon" :src="this.iconUrl" alt="">     
+           <div class="w_table">
+               
+                <table>
+                    <tr>
+                        <th>Temperature</th>
+                        <td>{{this.$props.weather.the_temp}} &#xb0;C</td>
+                        <th>Wind speed</th>
+                        <td>{{this.$props.weather.wind_speed}} mph</td>
+                    </tr>
+                    <tr>
+                        <th>Wind Direction</th>
+                        <td>{{this.$props.weather.wind_direction_compass}} </td>
+                        <th>Humidity</th>
+                        <td>{{this.$props.weather.humidity}} %</td>
+                    </tr>
+                    <tr>
+                        <th>Visibility</th>
+                        <td>{{this.$props.weather.visibility}} miles</td>
+                        <th>Predictability</th>
+                        <td>{{this.$props.weather.predictability}} %</td>
+                    </tr>
+                </table> 
+            
+            </div> 
+
+           
            <ul class="dates">
                <li v-for="date in dates" :key="date.id">
                     <img class="icons" :src="this.url+date.weather_state_abbr+this.svg"/>
-                    <p>{{date.applicable_date}}</p>   
+                    <p>{{date.applicable_date}}</p>
                </li>
            </ul>
       </div>
@@ -20,7 +46,7 @@ export default {
     data() {
         return {
             url :"https://www.metaweather.com/static/img/weather/",
-            svg :".svg" 
+            svg :".svg"
         }
     }    ,
     props:['location','parent','weather','dates'],
@@ -30,9 +56,10 @@ export default {
                
             },
             date0() {
-                return this.$props.dates[0].weather_state_name;
-            },      
-    }
+                return this.$props.weather.weather_state_name;
+            }
+               
+    },
 }
 </script>
 
@@ -54,11 +81,12 @@ export default {
 .modal {
     background: whitesmoke;
     padding: 150px;
-    max-width: 350px;
-    height: 80%;
-    
+    max-width: 800px;
+    height: 800px;
     align-items: center;
     justify-content: center;
+    border-radius: 80%;
+    border: 50px solid skyblue;
 }
 
 .dates {
@@ -73,5 +101,23 @@ export default {
     height: 100px;
     width: 100px;
 }
+.mainIcon {
+    height: 300px;
+    width: 400px;
+    margin-bottom: 20px;
+}
+.w_table {
+    margin-left: 0px;
+}
+table, tr {
+      border: 1px solid black;
+}
+th{
+    text-align: start;
+}
+td {
+    text-align: center;
+}
+
 
 </style>

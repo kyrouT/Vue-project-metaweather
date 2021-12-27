@@ -1,5 +1,5 @@
 <template>
-  <the-header @search="search"> </the-header>
+  <the-header @searchName="searchName" @searchCoord="searchCoord"> </the-header>
   <h1>Choose your location...</h1>
   <div class="locs">
     <locations class="loc"
@@ -11,6 +11,7 @@
     :title="loc.title"
     :type="loc.location_type"
     :coords="loc.latt_long"
+    :dist="loc.distance"
    ></locations>
   </div>
 
@@ -41,9 +42,21 @@ export default {
       testing:{}
     }
   },
-  created() {
-    axios
-      .get("https:/www.metaweather.com/api/location/search/?query=san")
+  // created() {
+  //   axios
+  //     .get("https:/www.metaweather.com/api/location/search/?lattlong=116.96,-122.02")
+  //     .then((response) => {
+  //       this.locations = response.data;
+  //       this.$store.state.locs = response.data;
+  //     })
+  //     .catch(error => {
+  //       console.log(error.response);
+  //     })
+  // },
+  methods: {
+    searchName(searched) {
+      axios
+      .get(`https:/www.metaweather.com/api/location/search/?query=${searched}`)
       .then((response) => {
         this.locations = response.data;
         this.$store.state.locs = response.data;
@@ -51,11 +64,10 @@ export default {
       .catch(error => {
         console.log(error.response);
       })
-  },
-  methods: {
-    search(searched) {
+    },
+    searchCoord(coords) {
       axios
-      .get(`https:/www.metaweather.com/api/location/search/?query=${searched}`)
+      .get(`https:/www.metaweather.com/api/location/search/?lattlong=${coords}`)
       .then((response) => {
         this.locations = response.data;
         this.$store.state.locs = response.data;
@@ -86,6 +98,8 @@ export default {
 </script>
 
 <style>
+
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -103,13 +117,13 @@ export default {
 .loc{
   flex-basis: 500px;
   flex-grow: 1;
-  
+  transition-duration: 0.3s;
  
 }
 
 .loc:hover {
-  opacity: 0.9;
-  background-color: rgb(200, 206, 207);
+  opacity: 1;
+  background-color: rgb(247, 247, 155);
   
 }
 

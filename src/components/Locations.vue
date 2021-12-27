@@ -3,6 +3,7 @@
       <h4>{{this.type}} of</h4>
       <h2>{{this.title}}</h2>
       <p>Located at {{this.coords}}.</p>
+      <p class="distance">{{this.distance}} km away from your Coordinates.</p>
   </div>
 </template>
 
@@ -10,7 +11,7 @@
 
 
 export default {
-    props: ['woeid','title','type','coords'],
+    props: ['woeid','title','type','coords','dist'],
     methods: {
         modalOff() {
             this.$emit('modalOff');
@@ -25,6 +26,11 @@ export default {
             locs : this.$store.state.locs
         }
     },
+    computed: {
+        distance() {
+            return this.$props.dist / 1000
+        }
+    }
 }
 </script>
 
@@ -38,5 +44,9 @@ export default {
         list-style: none;
        
         
+    }
+    .distance {
+        color: grey;
+        font-weight: bolder;
     }
 </style>

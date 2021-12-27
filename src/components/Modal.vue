@@ -18,13 +18,13 @@
                         <th>Wind Direction</th>
                         <td>{{this.$props.weather.wind_direction_compass}} </td>
                         <th>Humidity</th>
-                        <td>{{this.$props.weather.humidity}} %</td>
+                        <td>{{this.$props.weather.humidity}}%</td>
                     </tr>
                     <tr>
                         <th>Visibility</th>
                         <td>{{this.$props.weather.visibility}} miles</td>
                         <th>Predictability</th>
-                        <td>{{this.$props.weather.predictability}} %</td>
+                        <td>{{this.$props.weather.predictability}}%</td>
                     </tr>
                 </table> 
             
@@ -114,6 +114,7 @@ table, tr {
 }
 th{
     text-align: start;
+    padding-right: 10px;
 }
 td {
     text-align: center;

@@ -1,9 +1,8 @@
 <template>
-  <the-header> </the-header>
-  <button @click="modalToggle">Show store</button>
+  <the-header @search="search"> </the-header>
   <h1>Locations</h1>
   <div class="locs">
-    <locations
+    <locations class="loc"
     @picked="getWeather"
     @modalOff="modalToggle"
     v-for="loc in locations"
@@ -54,6 +53,17 @@ export default {
       })
   },
   methods: {
+    search(searched) {
+      axios
+      .get(`https:/www.metaweather.com/api/location/search/?query=${searched}`)
+      .then((response) => {
+        this.locations = response.data;
+        this.$store.state.locs = response.data;
+      })
+      .catch(error => {
+        console.log(error.response);
+      })
+    },
     getWeather(id) {
       this.modalToggle();
       axios 
@@ -85,5 +95,14 @@ export default {
   margin-top: 60px;
 }
 
+.locs{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.loc{
+  min-width: 500px;
+  
+}
 
 </style>

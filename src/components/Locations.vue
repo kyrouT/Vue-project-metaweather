@@ -1,7 +1,5 @@
 <template>
   <div class="wrapper" @click="emitId">
-      <!-- <location-card v-for="loc in locs" :key="loc.woeid" @modalOut="modalOff"></location-card> -->
-      
       <h4>{{this.type}} of</h4>
       <h2>{{this.title}}</h2>
       <p>Located at {{this.coords}}.</p>

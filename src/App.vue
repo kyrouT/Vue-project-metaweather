@@ -15,7 +15,7 @@
    ></locations>
   </div>
 
-  <modal v-if="modalVisible" @click="modalToggle" :location="this.selectedLocation" :parent="this.parentLocation" :weather="this.weather" :dates="this.testing"></modal>
+  <modal v-if="modalVisible" @modalToggle="modalToggle" :location="this.selectedLocation" :parent="this.parentLocation" :weather="this.weather" :dates="this.testing"></modal>
 </template>
 
 <script>
@@ -62,7 +62,7 @@ export default {
         this.$store.state.locs = response.data;
       })
       .catch(error => {
-        console.log(error.response);
+        console.log(error.response); 
       })
     },
     searchCoord(coords) {
@@ -77,9 +77,10 @@ export default {
       })
     },
     getWeather(id) {
+      console.log(id);
       this.modalToggle();
       axios 
-      .get(`https://www.metaweather.com/api/location/${id}`)
+      .get(`http://localhost:8080/api/location/${id}`)
       .then((response) => {
         this.weather = response.data.consolidated_weather[0];
         this.testing = response.data.consolidated_weather;
@@ -95,6 +96,7 @@ export default {
     }
   }
 }
+
 </script>
 
 <style>

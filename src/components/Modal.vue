@@ -1,5 +1,5 @@
 <template>
-  <div class="backModal">
+  <div class="backModal" @click="modalToggle">
       <div class="modal">
             <h1>{{location}}</h1>
             <h3>{{parent}}</h3>
@@ -43,6 +43,11 @@
 
 <script>
 export default {
+    methods: {
+        modalToggle() {
+            this.$emit("modalToggle");
+        }
+    },
     data() {
         return {
             url :"https://www.metaweather.com/static/img/weather/",

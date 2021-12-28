@@ -5,11 +5,12 @@
   </div>
   
       <div class="bottomhead">
-          <input @keypress="search" type="text" placeholder="Type your City .... or your Coordinates to the next blocks " v-model="searched" >
-          <input class="ll" type="number" placeholder="lattitude" v-model="latt">
-          <input class="ll" type="number" placeholder="longitude" v-model="long">
+          <input @keypress.enter="search" type="text" placeholder="Type your City .... or your Coordinates to the next blocks " v-model="searched" >
+          <input @keypress.enter="search" class="ll" :class="{invalid: !latt.isValid}" type="number" placeholder="lattitude" v-model="latt.val" @blur="clearValid('latt')">
+          <input @keypress.enter="search" class="ll" :class="{invalid: !long.isValid}" type="number" placeholder="longitude" v-model="long.val" @blur="clearValid('long')">
           <button @click="search" class="searchbtn">Find Weather</button>
       </div>
+      <p class="errorMsg" v-if="!formValid">{{errorMsg}}</p>
 </template>
 
 <script>
@@ -17,23 +18,47 @@ export default {
     data() {
         return {
             searched: "",
-            latt: 0,
-            long: 0,
-            coord: "" 
+            latt: {
+                val : 0,
+                isValid: true
+            },
+            long:  {
+                val : 0,
+                isValid: true
+            },
+            coord:  {
+                val : "",
+                isValid: true
+            },
+            formValid: true,
+            errorMsg: "" 
         }
     },
     methods: {
+        clearValid(input) {
+            this[input].isValid = true;
+        },
         search() {
-            if (this.searched != "" && (this.latt != 0 || this.long != 0)){
-                console.log("You have to Enter only a Location or both the lattitude and longtitude");
-            } else if (this.searched == "" && (this.latt == 0 || this.long == 0)) {
-                console.log("You have to Enter only a Location or both the lattitude and longtitude");
-            
-            } else if (this.latt != 0 && this.long != 0) {
-                this.coord = this.latt + "," + this.long;
+            this.formValid = true;
+            if (this.searched != "" && (this.latt.val != 0 || this.long.val != 0)){
+                this.formValid = false;
+                this.errorMsg = ("You have to Enter only a Location or both the lattitude and longtitude");
+            } else if (this.searched == "" && (this.latt.val == 0 || this.long.val == 0)) {
+                this.formValid = false;
+               this.errorMsg = ("You have to Enter only a Location or both the lattitude and longtitude");
+
+            }else if (this.latt.val < -90 || this.latt.val > 90) {
+                this.formValid = false;
+                this.latt.isValid = false;
+                this.errorMsg = "Lattitude value has to be between -90 and 90."
+            }else if (this.long.val < -180 || this.long.val > 180) {
+                this.formValid = false;
+                this.long.isValid = false;
+                this.errorMsg = "Longtitude value has to be between -180 and 180."
+            }else if (this.latt.val != 0 && this.long.val != 0) {
+                this.coord = this.latt.val + "," + this.long.val;
                 this.$emit('searchCoord',this.coord) 
-            
-            } else {
+             } else {
                 this.$emit('searchName',this.searched);   
             }
         }   
@@ -43,6 +68,12 @@ export default {
 </script>
 
 <style scoped>
+.invalid {
+    border-color: red;
+}
+.errorMsg {
+    color: red;
+}
 .ll {
     width: 120px;
 }

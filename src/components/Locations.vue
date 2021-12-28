@@ -3,7 +3,7 @@
       <h4>{{this.type}} of</h4>
       <h2>{{this.title}}</h2>
       <p>Located at {{this.coords}}.</p>
-      <p class="distance">{{this.distance}} km away from your Coordinates.</p>
+      <p v-if="(distance!= 0)" class="distance">{{this.distance}} km away from your Coordinates.</p>
   </div>
 </template>
 
@@ -28,8 +28,14 @@ export default {
     },
     computed: {
         distance() {
-            return this.$props.dist / 1000
-        }
+            if (isNaN(this.$props.dist)){
+                return 0
+            } else {
+                return this.$props.dist / 1000
+            }
+                
+            
+        },
     }
 }
 </script>

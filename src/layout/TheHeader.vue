@@ -4,12 +4,12 @@
   <img class="startingIcon" src="../assets/weather.png" alt="">
   </div>
   
-      <div class="bottomhead">
+      <form @submit.prevent="submitForm" class="bottomhead">
           <input @keypress.enter="search" type="text" placeholder="Type your City .... or your Coordinates to the next blocks " v-model="searched" >
           <input @keypress.enter="search" class="ll" :class="{invalid: !latt.isValid}" type="number" placeholder="lattitude" v-model="latt.val" @blur="clearValid('latt')">
           <input @keypress.enter="search" class="ll" :class="{invalid: !long.isValid}" type="number" placeholder="longitude" v-model="long.val" @blur="clearValid('long')">
           <button @click="search" class="searchbtn">Find Weather</button>
-      </div>
+      </form>
       <p class="errorMsg" v-if="!formValid">{{errorMsg}}</p>
 </template>
 

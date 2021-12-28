@@ -56,7 +56,7 @@ export default {
   methods: {
     searchName(searched) {
       axios
-      .get(`https:/www.metaweather.com/api/location/search/?query=${searched}`)
+      .get(`http://localhost:8080/api/location/search/?query=${searched}`)
       .then((response) => {
         this.locations = response.data;
         this.$store.state.locs = response.data;
@@ -67,7 +67,7 @@ export default {
     },
     searchCoord(coords) {
       axios
-      .get(`https:/www.metaweather.com/api/location/search/?lattlong=${coords}`)
+      .get(`http://localhost:8080/api/location/search/?lattlong=${coords}`)
       .then((response) => {
         this.locations = response.data;
         this.$store.state.locs = response.data;
